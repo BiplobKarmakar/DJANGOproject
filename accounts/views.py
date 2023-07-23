@@ -2,16 +2,31 @@ from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from contacts.models import Contact
+from .models import CustomUser
 # Create your views here.
 
 
+'''def tempregister(request):
+    choices = CustomUser.objects.all()
+    print(choices)
+    return render(request, 'accounts/register.html', {'choices': choices})
+
+'''
+
+
 def register(request):
+    choices = CustomUser.status_choices
+    # print(choices)
+    return render(request, 'accounts/register.html', {'choices': choices})
+
     if request.method == 'POST':
         # messages.error(request,'Testing error message')
         # register user
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         username = request.POST['username']
+        choices = request.POST['choices']
+
         email = request.POST['email']
         password = request.POST['password']
         password2 = request.POST['password2']
@@ -26,7 +41,7 @@ def register(request):
                     return redirect('register')
                 else:
                     user = User.objects.create_user(
-                        username=username, password=password, email=email, first_name=first_name, last_name=last_name)
+                        username=username, password=password, choices=choices, email=email, first_name=first_name, last_name=last_name)
                    # auth.login(request, user)
                     user.save()
                     messages.success(
@@ -38,7 +53,6 @@ def register(request):
             return redirect('register')
 
     else:
-
         return render(request, 'accounts/register.html')
 
 
@@ -72,8 +86,9 @@ def logout(request):
 
 
 def dashboard(request):
-    user_contacts=Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)
-    context={
-        'contacts':user_contacts
+    user_contacts = Contact.objects.order_by(
+        '-contact_date').filter(user_id=request.user.id)
+    context = {
+        'contacts': user_contacts
     }
-    return render(request, 'accounts/dashboard.html', context )
+    return render(request, 'accounts/dashboard.html', context)

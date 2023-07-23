@@ -67,6 +67,9 @@ def search(request):
     }
     return render(request, 'listings/search.html', context)
 
+def buysale(request):
+    return render(request,'listings/buysale.html')
+
    
         
      
