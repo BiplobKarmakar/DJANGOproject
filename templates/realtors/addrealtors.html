@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1 align="center"> Welcome to AddRealtor Page</h1>
+<div class="container mt-3" style="width:95%; font-size: 14px;">
+    <form action="" method="POST" class="card p-3 mt-5" autocomplete="off">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-6">
+                {{ form.name|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.phone | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{ form.email|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.hire_date | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{ form.is_mvp|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.photo | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {{ form.description | as_crispy_field }}
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+    {% for message in messages %}
+    {% if message.tags == 'success' %}
+    <div class="text-center alert-primary alert-dimissible fade show" role="alert">{{message}}
+        <a href="{% url 'dashboard' }" type="button" class="btn btn-close" data-bs-dismiss="alert"
+            aria-label="close"></a>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+
+{% endblock %}

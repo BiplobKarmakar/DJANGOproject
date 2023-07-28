@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+
+{% block title %} | {{ listing.title }} {% endblock %}
+
+{% block content %}
+
+<h1 align="center">Welcome to add listing pages </h1>
+<div class="container mt-3" style="width:95%; font-size: 14px;">
+    <form action="" method="POST" class="card p-3 mt-5" autocomplete="off">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-6">
+                {{ form.realtor|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.title | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{ form.address|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.city | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{ form.state|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.zipcode | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{ form.price|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.bedrooms | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{ form.bathrooms|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.garage | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{ form.sqfts|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.lotsize | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{ form.is_published|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.list_date | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{ form.photo_main|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.photo_1 | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{ form.photo_2|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.photo_3 | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                {{ form.photo_4|as_crispy_field }}
+            </div>
+            <div class="col-4">
+                {{ form.photo_5 | as_crispy_field }}
+            </div>
+            <div class="col-4">
+                {{ form.photo_6 | as_crispy_field }}
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-12">
+                {{ form.description|as_crispy_field }}
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+    <!--message from backend -->
+    {% for message in messages %}
+    {% if message.tags == 'success' %}
+    <div class="text-center alert-primary alert-dimissible fade show" role="alert">{{message}}
+        <a href="{% url 'dashboard' }" type="button" class="btn btn-close" data-bs-dismiss="alert"
+            aria-label="close"></a>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
